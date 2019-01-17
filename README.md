@@ -1,1 +1,1 @@
-# PsychiatricHospital Project
+# Project PsychiatricHospital
