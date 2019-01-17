@@ -1,0 +1,199 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://script/enemies/Ghost_00.gd" type="Script" id=1]
+[ext_resource path="res://textures/enemies/1/Ghost_1.png" type="Texture" id=2]
+[ext_resource path="res://textures/enemies/1/Ghost_2.png" type="Texture" id=3]
+[ext_resource path="res://textures/enemies/1/Ghost_3.png" type="Texture" id=4]
+[ext_resource path="res://textures/enemies/1/Ghost_4.png" type="Texture" id=5]
+[ext_resource path="res://textures/enemies/1/Ghost_5.png" type="Texture" id=6]
+[ext_resource path="res://textures/enemies/1/Ghost_7.png" type="Texture" id=7]
+[ext_resource path="res://textures/enemies/1/Ghost_8.png" type="Texture" id=8]
+[ext_resource path="res://textures/enemies/1/Ghost_9.png" type="Texture" id=9]
+[ext_resource path="res://textures/enemies/1/Ghost_10.png" type="Texture" id=10]
+[ext_resource path="res://textures/enemies/1/Ghost_11.png" type="Texture" id=11]
+[ext_resource path="res://textures/enemies/1/Ghost_12.png" type="Texture" id=12]
+[ext_resource path="res://textures/enemies/1/Ghost_13.png" type="Texture" id=13]
+[ext_resource path="res://textures/enemies/1/Ghost_14.png" type="Texture" id=14]
+[ext_resource path="res://textures/enemies/1/Ghost_15.png" type="Texture" id=15]
+[ext_resource path="res://textures/enemies/1/Ghost_16.png" type="Texture" id=16]
+[ext_resource path="res://textures/enemies/1/Ghost_17.png" type="Texture" id=17]
+[ext_resource path="res://textures/enemies/1/Ghost_18.png" type="Texture" id=18]
+[ext_resource path="res://textures/enemies/1/Ghost_19.png" type="Texture" id=19]
+[ext_resource path="res://textures/enemies/1/Ghost_20.png" type="Texture" id=20]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 14.9222
+height = 38.5171
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "walk",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 213.41, 39.6078 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 95.7097, 40.0955 )
+
+[sub_resource type="RectangleShape2D" id=8]
+
+custom_solver_bias = 0.0
+extents = Vector2( 384.365, 39.8794 )
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "invisible_end"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteAnim:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.588235 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource_name = "invisible_start"
+length = 3.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteAnim:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.588235 ) ]
+}
+
+[node name="Ghost_00" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 2
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+enemy_speed = 50
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+position = Vector2( 0, 25 )
+rotation = -1.5708
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="SpriteAnim" type="AnimatedSprite" parent="." index="1"]
+
+modulate = Color( 1, 1, 1, 0 )
+frames = SubResource( 2 )
+animation = "idle"
+frame = 1
+playing = true
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Area2D_invisible" type="Area2D" parent="." index="2"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_invisible" index="0"]
+
+rotation = -3.14159
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Area2D_walk_player" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_walk_player" index="0"]
+
+rotation = -3.14159
+shape = SubResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Area2D_traget_player" type="Area2D" parent="." index="4"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_traget_player" index="0"]
+
+rotation = -3.14159
+shape = SubResource( 8 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/invisible_end = SubResource( 6 )
+anims/invisible_start = SubResource( 7 )
+blend_times = [  ]
+
+[connection signal="body_entered" from="Area2D_invisible" to="." method="_on_Area2D_invisible_body_entered"]
+
+[connection signal="body_exited" from="Area2D_invisible" to="." method="_on_Area2D_invisible_body_exited"]
+
+[connection signal="body_entered" from="Area2D_walk_player" to="." method="_on_Area2D_walk_player_body_entered"]
+
+[connection signal="body_exited" from="Area2D_walk_player" to="." method="_on_Area2D_walk_player_body_exited"]
+
+[connection signal="body_entered" from="Area2D_traget_player" to="." method="_on_Area2D_traget_player_body_entered"]
+
+[connection signal="body_exited" from="Area2D_traget_player" to="." method="_on_Area2D_traget_player_body_exited"]
+
+
